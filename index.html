@@ -11,13 +11,13 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://torneo-smash.josepaternina.com/">
     <meta property="og:title" content="SMASH SCRUBS SAGA">
-    <meta property="og:description" content="Torneo de Smash Bros - Premiacion: $80K/$50K/$30K">
+    <meta property="og:description" content="Torneo de Smash Bros - Premiacion: $100K/$60K/$40K">
     <meta property="og:image" content="https://torneo-smash.josepaternina.com/logo.png">
 
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://torneo-smash.josepaternina.com/">
     <meta property="twitter:title" content="SMASH SCRUBS SAGA">
-    <meta property="twitter:description" content="Torneo de Smash Bros - Premiacion: $80K/$50K/$30K">
+    <meta property="twitter:description" content="Torneo de Smash Bros - Premiacion: $100K/$60K/$40K">
     <meta property="twitter:image" content="https://torneo-smash.josepaternina.com/logo.png">
 
     <meta property="og:image:width" content="300">
@@ -354,21 +354,21 @@
             color: var(--text-dim);
         }
 
-        /* Top 4 glow */
-        .standings-table .top-4 {
+        /* Top 8 glow */
+        .standings-table .top-8 {
             background: rgba(232,213,87,0.035);
         }
 
-        .standings-table .top-4 td:first-child {
+        .standings-table .top-8 td:first-child {
             color: var(--gold);
         }
 
-        .standings-table .top-4 td:nth-child(3) {
+        .standings-table .top-8 td:nth-child(3) {
             color: var(--gold);
         }
 
         /* Rank 1 special */
-        .standings-table tr.top-4:first-child td:first-child {
+        .standings-table tr.top-8:first-child td:first-child {
             font-size: 2.1rem;
             text-shadow: 0 0 24px rgba(232,213,87,0.6);
         }
@@ -832,19 +832,19 @@
                     <div class="prize-card second">
                         <div class="prize-icon">&#x1F948;</div>
                         <div class="prize-position">2DO</div>
-                        <div class="prize-amount">$50.000</div>
+                        <div class="prize-amount">$60.000</div>
                         <div class="prize-label">Segundo Lugar</div>
                     </div>
                     <div class="prize-card first">
                         <div class="prize-icon">&#x1F947;</div>
                         <div class="prize-position">1ER</div>
-                        <div class="prize-amount">$80.000</div>
+                        <div class="prize-amount">$100.000</div>
                         <div class="prize-label">Primer Lugar</div>
                     </div>
                     <div class="prize-card third">
                         <div class="prize-icon">&#x1F949;</div>
                         <div class="prize-position">3ER</div>
-                        <div class="prize-amount">$30.000</div>
+                        <div class="prize-amount">$40.000</div>
                         <div class="prize-label">Tercer Lugar</div>
                     </div>
                 </div>
@@ -902,11 +902,11 @@
                         <span class="rule-toggle">&#x25BC;</span>
                     </div>
                     <div class="rule-content">
-                        <p>Los 8 participantes se enfrentaran en un grupo unico donde todos compiten contra todos.</p>
+                        <p>Los 10 participantes se enfrentaran en un grupo unico donde todos compiten contra todos.</p>
                         <ul>
                             <li><strong>Formato:</strong> Mejor de 3 peleas (Bo3)</li>
                             <li><strong>Seleccion de personaje:</strong> Libre, se permite cambiar entre peleas</li>
-                            <li><strong>Clasificacion:</strong> Los 4 jugadores con mas duelos ganados avanzan</li>
+                            <li><strong>Clasificacion:</strong> Los 8 jugadores con mas duelos ganados avanzan a cuartos de final</li>
                             <li><strong>Desempate:</strong></li>
                             <ul>
                                 <li>2 personas: pelea a 3 vidas</li>
@@ -919,15 +919,26 @@
                 <div class="rule-block active">
                     <div class="rule-header">
                         <span class="rule-number">04</span>
-                        <span class="rule-title">Fase 2: Eliminacion Directa (Final Four)</span>
+                        <span class="rule-title">Fase 2: Eliminacion Directa (Cuartos, Semifinales y Final)</span>
                         <span class="rule-toggle">&#x25BC;</span>
                     </div>
                     <div class="rule-content">
                         <div class="phase-grid">
                             <div class="phase-card round-robin">
+                                <span class="phase-badge">CUARTOS</span>
+                                <div class="phase-name">1&deg; vs 8&deg;</div>
+                                <div class="phase-name">2&deg; vs 7&deg;</div>
+                                <div class="phase-name">3&deg; vs 6&deg;</div>
+                                <div class="phase-name">4&deg; vs 5&deg;</div>
+                                <ul class="phase-details">
+                                    <li><strong>Formato:</strong> Mejor de 3 (Bo3)</li>
+                                    <li>Ganador: 2 victorias</li>
+                                </ul>
+                            </div>
+                            <div class="phase-card round-robin">
                                 <span class="phase-badge">SEMIFINALES</span>
-                                <div class="phase-name">1&deg; vs 4&deg;</div>
-                                <div class="phase-name">2&deg; vs 3&deg;</div>
+                                <div class="phase-name">Ganador Q1 vs Q4</div>
+                                <div class="phase-name">Ganador Q2 vs Q3</div>
                                 <ul class="phase-details">
                                     <li><strong>Formato:</strong> Mejor de 3 (Bo3)</li>
                                     <li>Ganador: 2 victorias</li>
@@ -953,7 +964,7 @@
                         <span class="rule-toggle">&#x25BC;</span>
                     </div>
                     <div class="rule-content">
-                        <p>Antes de iniciar la Fase 2, los 4 clasificados deberan registrar oficialmente el personaje unico con el que competiran.</p>
+                        <p>Antes de iniciar los cuartos de final, los 8 clasificados deberan registrar oficialmente el personaje unico con el que competiran.</p>
                         <ul>
                             <li>Es <strong>obligatorio</strong> usar exclusivamente el personaje inscrito</li>
                             <li>No se permiten cambios de personaje en la fase de eliminacion directa</li>
@@ -1008,8 +1019,9 @@
       "partidos": [
         { "id": "f1-1", "player1": "Jacko",     "player2": "Gordo",     "ganador": null },
         { "id": "f1-2", "player1": "Sayo",      "player2": "Mono",      "ganador": null },
-        { "id": "f1-3", "player1": "Negro",     "player2": "Camachine", "ganador": null },
-        { "id": "f1-4", "player1": "Corne",     "player2": "Azita",     "ganador": null }
+        { "id": "f1-3", "player1": "Negro",     "player2": "Camachine", "ganador": "Negro" },
+        { "id": "f1-4", "player1": "Corne",     "player2": "Azita",     "ganador": null },
+        { "id": "f1-5", "player1": "Pater",     "player2": "Jr",        "ganador": null }
       ]
     },
     {
@@ -1018,7 +1030,8 @@
         { "id": "f2-1", "player1": "Jacko",     "player2": "Mono",      "ganador": null },
         { "id": "f2-2", "player1": "Gordo",     "player2": "Camachine", "ganador": null },
         { "id": "f2-3", "player1": "Sayo",      "player2": "Azita",     "ganador": null },
-        { "id": "f2-4", "player1": "Negro",     "player2": "Corne",     "ganador": null }
+        { "id": "f2-4", "player1": "Negro",     "player2": "Corne",     "ganador": null },
+        { "id": "f2-5", "player1": "Pater",     "player2": "Sayo",      "ganador": null }
       ]
     },
     {
@@ -1027,7 +1040,8 @@
         { "id": "f3-1", "player1": "Jacko",     "player2": "Camachine", "ganador": null },
         { "id": "f3-2", "player1": "Mono",      "player2": "Azita",     "ganador": null },
         { "id": "f3-3", "player1": "Gordo",     "player2": "Corne",     "ganador": null },
-        { "id": "f3-4", "player1": "Sayo",      "player2": "Negro",     "ganador": null }
+        { "id": "f3-4", "player1": "Sayo",      "player2": "Negro",     "ganador": null },
+        { "id": "f3-5", "player1": "Jr",        "player2": "Gordo",     "ganador": null }
       ]
     },
     {
@@ -1036,7 +1050,8 @@
         { "id": "f4-1", "player1": "Jacko",     "player2": "Azita",     "ganador": null },
         { "id": "f4-2", "player1": "Camachine", "player2": "Corne",     "ganador": null },
         { "id": "f4-3", "player1": "Mono",      "player2": "Negro",     "ganador": null },
-        { "id": "f4-4", "player1": "Gordo",     "player2": "Sayo",      "ganador": null }
+        { "id": "f4-4", "player1": "Gordo",     "player2": "Sayo",      "ganador": null },
+        { "id": "f4-5", "player1": "Pater",     "player2": "Camachine", "ganador": null }
       ]
     },
     {
@@ -1045,7 +1060,8 @@
         { "id": "f5-1", "player1": "Jacko",     "player2": "Corne",     "ganador": null },
         { "id": "f5-2", "player1": "Azita",     "player2": "Negro",     "ganador": null },
         { "id": "f5-3", "player1": "Camachine", "player2": "Sayo",      "ganador": null },
-        { "id": "f5-4", "player1": "Mono",      "player2": "Gordo",     "ganador": null }
+        { "id": "f5-4", "player1": "Mono",      "player2": "Gordo",     "ganador": null },
+        { "id": "f5-5", "player1": "Jr",        "player2": "Azita",     "ganador": null }
       ]
     },
     {
@@ -1054,7 +1070,8 @@
         { "id": "f6-1", "player1": "Jacko",     "player2": "Negro",     "ganador": null },
         { "id": "f6-2", "player1": "Corne",     "player2": "Sayo",      "ganador": null },
         { "id": "f6-3", "player1": "Azita",     "player2": "Gordo",     "ganador": null },
-        { "id": "f6-4", "player1": "Camachine", "player2": "Mono",      "ganador": null }
+        { "id": "f6-4", "player1": "Camachine", "player2": "Mono",      "ganador": null },
+        { "id": "f6-5", "player1": "Pater",     "player2": "Mono",      "ganador": null }
       ]
     },
     {
@@ -1063,7 +1080,28 @@
         { "id": "f7-1", "player1": "Jacko",     "player2": "Sayo",      "ganador": null },
         { "id": "f7-2", "player1": "Negro",     "player2": "Gordo",     "ganador": null },
         { "id": "f7-3", "player1": "Corne",     "player2": "Mono",      "ganador": null },
-        { "id": "f7-4", "player1": "Azita",     "player2": "Camachine", "ganador": null }
+        { "id": "f7-4", "player1": "Azita",     "player2": "Camachine", "ganador": null },
+        { "id": "f7-5", "player1": "Jr",        "player2": "Corne",     "ganador": null }
+      ]
+    },
+    {
+      "fecha": 8,
+      "partidos": [
+        { "id": "f8-1", "player1": "Jacko",     "player2": "Pater",     "ganador": null },
+        { "id": "f8-2", "player1": "Jr",        "player2": "Negro",     "ganador": null },
+        { "id": "f8-3", "player1": "Pater",     "player2": "Gordo",     "ganador": null },
+        { "id": "f8-4", "player1": "Jr",        "player2": "Sayo",      "ganador": null },
+        { "id": "f8-5", "player1": "Pater",     "player2": "Azita",     "ganador": null }
+      ]
+    },
+    {
+      "fecha": 9,
+      "partidos": [
+        { "id": "f9-1", "player1": "Jacko",     "player2": "Jr",        "ganador": null },
+        { "id": "f9-2", "player1": "Pater",     "player2": "Negro",     "ganador": null },
+        { "id": "f9-3", "player1": "Jr",        "player2": "Mono",      "ganador": null },
+        { "id": "f9-4", "player1": "Pater",     "player2": "Corne",     "ganador": null },
+        { "id": "f9-5", "player1": "Jr",        "player2": "Camachine", "ganador": null }
       ]
     }
   ]
@@ -1114,7 +1152,7 @@
             }
 
             tbody.innerHTML = players.map((p, i) => `
-                <tr class="${i < 4 ? 'top-4' : ''}">
+                <tr class="${i < 8 ? 'top-8' : ''}">
                     <td>${i + 1}</td>
                     <td>${p.name}</td>
                     <td>${p.wins}</td>
