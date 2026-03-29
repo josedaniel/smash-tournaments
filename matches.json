@@ -3,91 +3,316 @@
     {
       "fecha": 1,
       "partidos": [
-        { "id": "f1-1", "player1": "Jacko", "player2": "Gordo", "ganador": null },
-        { "id": "f1-2", "player1": "Sayo", "player2": "Mono", "ganador": null },
-        { "id": "f1-3", "player1": "Negro", "player2": "Camachine", "ganador": "Negro" },
-        { "id": "f1-4", "player1": "Corne", "player2": "Azita", "ganador": null },
-        { "id": "f1-5", "player1": "Pater", "player2": "Jr", "ganador": null }
+        {
+          "id": "f1-1",
+          "player1": "Jacko",
+          "player2": "Gordo",
+          "ganador": null
+        },
+        {
+          "id": "f1-2",
+          "player1": "Sayo",
+          "player2": "Mono",
+          "ganador": null
+        },
+        {
+          "id": "f1-3",
+          "player1": "Negro",
+          "player2": "Camachine",
+          "ganador": "Negro"
+        },
+        {
+          "id": "f1-4",
+          "player1": "Corne",
+          "player2": "Azita",
+          "ganador": null
+        },
+        {
+          "id": "f1-5",
+          "player1": "Pater",
+          "player2": "Jr",
+          "ganador": null
+        }
       ]
     },
     {
       "fecha": 2,
       "partidos": [
-        { "id": "f2-1", "player1": "Jacko", "player2": "Mono", "ganador": null },
-        { "id": "f2-2", "player1": "Gordo", "player2": "Camachine", "ganador": null },
-        { "id": "f2-3", "player1": "Sayo", "player2": "Azita", "ganador": null },
-        { "id": "f2-4", "player1": "Negro", "player2": "Corne", "ganador": null },
-        { "id": "f2-5", "player1": "Pater", "player2": "Sayo", "ganador": null }
+        {
+          "id": "f2-1",
+          "player1": "Azita",
+          "player2": "Camachine",
+          "ganador": null
+        },
+        {
+          "id": "f2-2",
+          "player1": "Corne",
+          "player2": "Gordo",
+          "ganador": null
+        },
+        {
+          "id": "f2-3",
+          "player1": "Jacko",
+          "player2": "Jr",
+          "ganador": null
+        },
+        {
+          "id": "f2-4",
+          "player1": "Mono",
+          "player2": "Negro",
+          "ganador": null
+        },
+        {
+          "id": "f2-5",
+          "player1": "Pater",
+          "player2": "Sayo",
+          "ganador": null
+        }
       ]
     },
     {
       "fecha": 3,
       "partidos": [
-        { "id": "f3-1", "player1": "Jacko", "player2": "Camachine", "ganador": null },
-        { "id": "f3-2", "player1": "Mono", "player2": "Azita", "ganador": null },
-        { "id": "f3-3", "player1": "Gordo", "player2": "Corne", "ganador": null },
-        { "id": "f3-4", "player1": "Sayo", "player2": "Negro", "ganador": null },
-        { "id": "f3-5", "player1": "Jr", "player2": "Gordo", "ganador": null }
+        {
+          "id": "f3-1",
+          "player1": "Azita",
+          "player2": "Gordo",
+          "ganador": null
+        },
+        {
+          "id": "f3-2",
+          "player1": "Camachine",
+          "player2": "Corne",
+          "ganador": null
+        },
+        {
+          "id": "f3-3",
+          "player1": "Jacko",
+          "player2": "Mono",
+          "ganador": null
+        },
+        {
+          "id": "f3-4",
+          "player1": "Jr",
+          "player2": "Sayo",
+          "ganador": null
+        },
+        {
+          "id": "f3-5",
+          "player1": "Negro",
+          "player2": "Pater",
+          "ganador": null
+        }
       ]
     },
     {
       "fecha": 4,
       "partidos": [
-        { "id": "f4-1", "player1": "Jacko", "player2": "Azita", "ganador": null },
-        { "id": "f4-2", "player1": "Camachine", "player2": "Corne", "ganador": null },
-        { "id": "f4-3", "player1": "Mono", "player2": "Negro", "ganador": null },
-        { "id": "f4-4", "player1": "Gordo", "player2": "Sayo", "ganador": null },
-        { "id": "f4-5", "player1": "Pater", "player2": "Camachine", "ganador": null }
+        {
+          "id": "f4-1",
+          "player1": "Azita",
+          "player2": "Jacko",
+          "ganador": null
+        },
+        {
+          "id": "f4-2",
+          "player1": "Camachine",
+          "player2": "Gordo",
+          "ganador": null
+        },
+        {
+          "id": "f4-3",
+          "player1": "Corne",
+          "player2": "Jr",
+          "ganador": null
+        },
+        {
+          "id": "f4-4",
+          "player1": "Mono",
+          "player2": "Pater",
+          "ganador": null
+        },
+        {
+          "id": "f4-5",
+          "player1": "Negro",
+          "player2": "Sayo",
+          "ganador": null
+        }
       ]
     },
     {
       "fecha": 5,
       "partidos": [
-        { "id": "f5-1", "player1": "Jacko", "player2": "Corne", "ganador": null },
-        { "id": "f5-2", "player1": "Azita", "player2": "Negro", "ganador": null },
-        { "id": "f5-3", "player1": "Camachine", "player2": "Sayo", "ganador": null },
-        { "id": "f5-4", "player1": "Mono", "player2": "Gordo", "ganador": null },
-        { "id": "f5-5", "player1": "Jr", "player2": "Azita", "ganador": null }
+        {
+          "id": "f5-1",
+          "player1": "Azita",
+          "player2": "Jr",
+          "ganador": null
+        },
+        {
+          "id": "f5-2",
+          "player1": "Camachine",
+          "player2": "Mono",
+          "ganador": null
+        },
+        {
+          "id": "f5-3",
+          "player1": "Corne",
+          "player2": "Negro",
+          "ganador": null
+        },
+        {
+          "id": "f5-4",
+          "player1": "Gordo",
+          "player2": "Pater",
+          "ganador": null
+        },
+        {
+          "id": "f5-5",
+          "player1": "Jacko",
+          "player2": "Sayo",
+          "ganador": null
+        }
       ]
     },
     {
       "fecha": 6,
       "partidos": [
-        { "id": "f6-1", "player1": "Jacko", "player2": "Negro", "ganador": null },
-        { "id": "f6-2", "player1": "Corne", "player2": "Sayo", "ganador": null },
-        { "id": "f6-3", "player1": "Azita", "player2": "Gordo", "ganador": null },
-        { "id": "f6-4", "player1": "Camachine", "player2": "Mono", "ganador": null },
-        { "id": "f6-5", "player1": "Pater", "player2": "Mono", "ganador": null }
+        {
+          "id": "f6-1",
+          "player1": "Azita",
+          "player2": "Mono",
+          "ganador": null
+        },
+        {
+          "id": "f6-2",
+          "player1": "Camachine",
+          "player2": "Jacko",
+          "ganador": null
+        },
+        {
+          "id": "f6-3",
+          "player1": "Corne",
+          "player2": "Pater",
+          "ganador": null
+        },
+        {
+          "id": "f6-4",
+          "player1": "Gordo",
+          "player2": "Sayo",
+          "ganador": null
+        },
+        {
+          "id": "f6-5",
+          "player1": "Jr",
+          "player2": "Negro",
+          "ganador": null
+        }
       ]
     },
     {
       "fecha": 7,
       "partidos": [
-        { "id": "f7-1", "player1": "Jacko", "player2": "Sayo", "ganador": null },
-        { "id": "f7-2", "player1": "Negro", "player2": "Gordo", "ganador": null },
-        { "id": "f7-3", "player1": "Corne", "player2": "Mono", "ganador": null },
-        { "id": "f7-4", "player1": "Azita", "player2": "Camachine", "ganador": null },
-        { "id": "f7-5", "player1": "Jr", "player2": "Corne", "ganador": null }
+        {
+          "id": "f7-1",
+          "player1": "Azita",
+          "player2": "Negro",
+          "ganador": null
+        },
+        {
+          "id": "f7-2",
+          "player1": "Camachine",
+          "player2": "Jr",
+          "ganador": null
+        },
+        {
+          "id": "f7-3",
+          "player1": "Corne",
+          "player2": "Sayo",
+          "ganador": null
+        },
+        {
+          "id": "f7-4",
+          "player1": "Gordo",
+          "player2": "Mono",
+          "ganador": null
+        },
+        {
+          "id": "f7-5",
+          "player1": "Jacko",
+          "player2": "Pater",
+          "ganador": null
+        }
       ]
     },
     {
       "fecha": 8,
       "partidos": [
-        { "id": "f8-1", "player1": "Jacko", "player2": "Pater", "ganador": null },
-        { "id": "f8-2", "player1": "Jr", "player2": "Negro", "ganador": null },
-        { "id": "f8-3", "player1": "Pater", "player2": "Gordo", "ganador": null },
-        { "id": "f8-4", "player1": "Jr", "player2": "Sayo", "ganador": null },
-        { "id": "f8-5", "player1": "Pater", "player2": "Azita", "ganador": null }
+        {
+          "id": "f8-1",
+          "player1": "Azita",
+          "player2": "Pater",
+          "ganador": null
+        },
+        {
+          "id": "f8-2",
+          "player1": "Camachine",
+          "player2": "Sayo",
+          "ganador": null
+        },
+        {
+          "id": "f8-3",
+          "player1": "Corne",
+          "player2": "Jacko",
+          "ganador": null
+        },
+        {
+          "id": "f8-4",
+          "player1": "Gordo",
+          "player2": "Negro",
+          "ganador": null
+        },
+        {
+          "id": "f8-5",
+          "player1": "Jr",
+          "player2": "Mono",
+          "ganador": null
+        }
       ]
     },
     {
       "fecha": 9,
       "partidos": [
-        { "id": "f9-1", "player1": "Jacko", "player2": "Jr", "ganador": null },
-        { "id": "f9-2", "player1": "Pater", "player2": "Negro", "ganador": null },
-        { "id": "f9-3", "player1": "Jr", "player2": "Mono", "ganador": null },
-        { "id": "f9-4", "player1": "Pater", "player2": "Corne", "ganador": null },
-        { "id": "f9-5", "player1": "Jr", "player2": "Camachine", "ganador": null }
+        {
+          "id": "f9-1",
+          "player1": "Azita",
+          "player2": "Sayo",
+          "ganador": null
+        },
+        {
+          "id": "f9-2",
+          "player1": "Camachine",
+          "player2": "Pater",
+          "ganador": null
+        },
+        {
+          "id": "f9-3",
+          "player1": "Corne",
+          "player2": "Mono",
+          "ganador": null
+        },
+        {
+          "id": "f9-4",
+          "player1": "Gordo",
+          "player2": "Jr",
+          "ganador": null
+        },
+        {
+          "id": "f9-5",
+          "player1": "Jacko",
+          "player2": "Negro",
+          "ganador": null
+        }
       ]
     }
   ]
