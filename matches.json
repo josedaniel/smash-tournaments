@@ -42,19 +42,19 @@
           "id": "f2-1",
           "player1": "Azita",
           "player2": "Camachine",
-          "ganador": null
+          "ganador": "Camachine"
         },
         {
           "id": "f2-2",
           "player1": "Corne",
           "player2": "Gordo",
-          "ganador": null
+          "ganador": "Corne"
         },
         {
           "id": "f2-3",
           "player1": "Jacko",
           "player2": "Jr",
-          "ganador": null
+          "ganador": "Jacko"
         },
         {
           "id": "f2-4",
@@ -66,7 +66,7 @@
           "id": "f2-5",
           "player1": "Pater",
           "player2": "Sayo",
-          "ganador": null
+          "ganador": "Sayo"
         }
       ]
     },
