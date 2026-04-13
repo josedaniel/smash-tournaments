@@ -354,24 +354,60 @@
             color: var(--text-dim);
         }
 
-        /* Top 8 glow */
+        /* Zone divider rows */
+        .standings-table .zone-divider td {
+            padding: 7px 22px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Posiciones actuales */
+        .standings-table .zone-divider.zone-top td {
+            background: rgba(232,213,87,0.07);
+            color: var(--gold);
+            border-top: 1px solid rgba(232,213,87,0.2);
+            border-bottom: 1px solid rgba(232,213,87,0.2);
+        }
         .standings-table .top-8 {
-            background: rgba(232,213,87,0.035);
+            background: rgba(232,213,87,0.03);
         }
-
-        .standings-table .top-8 td:first-child {
-            color: var(--gold);
-        }
-
-        .standings-table .top-8 td:nth-child(3) {
-            color: var(--gold);
-        }
-
-        /* Rank 1 special */
+        .standings-table .top-8 td:first-child { color: var(--gold); }
+        .standings-table .top-8 td:nth-child(3) { color: var(--gold); }
         .standings-table tr.top-8:first-child td:first-child {
             font-size: 2.1rem;
             text-shadow: 0 0 24px rgba(232,213,87,0.6);
         }
+
+        /* Zona gris */
+        .standings-table .zone-divider.zone-gray td {
+            background: rgba(255,255,255,0.04);
+            color: rgba(232,232,244,0.35);
+            border-top: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .standings-table .zona-gris {
+            background: rgba(255,255,255,0.015);
+            opacity: 0.75;
+        }
+        .standings-table .zona-gris td:first-child { color: rgba(232,232,244,0.45); }
+        .standings-table .zona-gris td:nth-child(3) { color: rgba(232,232,244,0.45); }
+
+        /* Cola */
+        .standings-table .zone-divider.zone-cola td {
+            background: rgba(220,60,60,0.06);
+            color: rgba(220,100,100,0.7);
+            border-top: 1px solid rgba(220,60,60,0.15);
+            border-bottom: 1px solid rgba(220,60,60,0.15);
+        }
+        .standings-table .cola {
+            background: rgba(220,60,60,0.03);
+            opacity: 0.6;
+        }
+        .standings-table .cola td:first-child { color: rgba(220,100,100,0.6); }
+        .standings-table .cola td:nth-child(3) { color: rgba(220,100,100,0.6); }
 
         /* =====================
            PRIZES
@@ -384,7 +420,7 @@
 
         .prize-grid {
             display: grid;
-            grid-template-columns: 1fr 1.15fr 1fr;
+            grid-template-columns: 1fr 1.15fr 1fr 0.85fr;
             gap: 18px;
             align-items: end;
         }
@@ -429,6 +465,12 @@
         }
         .prize-card.third::before { background: linear-gradient(90deg, transparent, var(--orange), transparent); }
 
+        .prize-card.fourth {
+            border-color: rgba(255,255,255,0.1);
+            background: linear-gradient(180deg, rgba(255,255,255,0.025) 0%, var(--bg-card) 60%);
+        }
+        .prize-card.fourth::before { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); }
+
         .prize-icon {
             font-size: 3.2rem;
             display: block;
@@ -459,6 +501,8 @@
         .prize-card.first .prize-amount  { color: var(--gold);   font-size: 2.6rem; }
         .prize-card.second .prize-amount { color: var(--sky); }
         .prize-card.third .prize-amount  { color: var(--orange); }
+        .prize-card.fourth .prize-position { color: var(--text-dim); font-size: 2rem; }
+        .prize-card.fourth .prize-amount   { color: var(--text-dim); font-size: 1.6rem; }
 
         .prize-label {
             font-size: 0.72rem;
@@ -760,6 +804,7 @@
             .prize-card.first  { order: -1; padding: 36px 20px; }
             .prize-card.second { order: 0; }
             .prize-card.third  { order: 1; }
+            .prize-card.fourth { order: 2; }
             .prize-card.first .prize-position { font-size: 2.8rem; }
             .prize-card.first .prize-amount   { font-size: 2.2rem; }
 
@@ -849,6 +894,12 @@
                         <div class="prize-position">3ER</div>
                         <div class="prize-amount">$40.000</div>
                         <div class="prize-label">Tercer Lugar</div>
+                    </div>
+                    <div class="prize-card fourth">
+                        <div class="prize-icon">&#x1F3C5;</div>
+                        <div class="prize-position">4TO</div>
+                        <div class="prize-amount">$20.000</div>
+                        <div class="prize-label">Cuarto Lugar</div>
                     </div>
                 </div>
 
@@ -1030,100 +1081,49 @@
             });
         });
 
-        const matchData = {
-  "fase1": [
-    {
-      "fecha": 1,
-      "partidos": [
-        { "id": "f1-1", "player1": "Jacko",     "player2": "Gordo",     "ganador": "Jacko" },
-        { "id": "f1-2", "player1": "Sayo",      "player2": "Mono",      "ganador": "Sayo" },
-        { "id": "f1-3", "player1": "Negro",     "player2": "Camachine", "ganador": "Negro" },
-        { "id": "f1-4", "player1": "Corne",     "player2": "Azita",     "ganador": "Corne" },
-        { "id": "f1-5", "player1": "Pater",     "player2": "Jr",        "ganador": "Jr" }
-      ]
-    },
-    {
-      "fecha": 2,
-      "partidos": [
-        { "id": "f2-1", "player1": "Azita",     "player2": "Camachine", "ganador": "Camachine" },
-        { "id": "f2-2", "player1": "Corne",     "player2": "Gordo",     "ganador": "Corne" },
-        { "id": "f2-3", "player1": "Jacko",     "player2": "Jr",        "ganador": "Jacko" },
-        { "id": "f2-4", "player1": "Mono",      "player2": "Negro",     "ganador": null },
-        { "id": "f2-5", "player1": "Pater",     "player2": "Sayo",      "ganador": "Sayo" }
-      ]
-    },
-    {
-      "fecha": 3,
-      "partidos": [
-        { "id": "f3-1", "player1": "Azita",     "player2": "Gordo",     "ganador": null },
-        { "id": "f3-2", "player1": "Camachine", "player2": "Corne",     "ganador": null },
-        { "id": "f3-3", "player1": "Jacko",     "player2": "Mono",      "ganador": null },
-        { "id": "f3-4", "player1": "Jr",        "player2": "Sayo",      "ganador": null },
-        { "id": "f3-5", "player1": "Negro",     "player2": "Pater",     "ganador": null }
-      ]
-    },
-    {
-      "fecha": 4,
-      "partidos": [
-        { "id": "f4-1", "player1": "Azita",     "player2": "Jacko",     "ganador": null },
-        { "id": "f4-2", "player1": "Camachine", "player2": "Gordo",     "ganador": null },
-        { "id": "f4-3", "player1": "Corne",     "player2": "Jr",        "ganador": null },
-        { "id": "f4-4", "player1": "Mono",      "player2": "Pater",     "ganador": null },
-        { "id": "f4-5", "player1": "Negro",     "player2": "Sayo",      "ganador": null }
-      ]
-    },
-    {
-      "fecha": 5,
-      "partidos": [
-        { "id": "f5-1", "player1": "Azita",     "player2": "Jr",        "ganador": null },
-        { "id": "f5-2", "player1": "Camachine", "player2": "Mono",      "ganador": null },
-        { "id": "f5-3", "player1": "Corne",     "player2": "Negro",     "ganador": null },
-        { "id": "f5-4", "player1": "Gordo",     "player2": "Pater",     "ganador": null },
-        { "id": "f5-5", "player1": "Jacko",     "player2": "Sayo",      "ganador": null }
-      ]
-    },
-    {
-      "fecha": 6,
-      "partidos": [
-        { "id": "f6-1", "player1": "Azita",     "player2": "Mono",      "ganador": null },
-        { "id": "f6-2", "player1": "Camachine", "player2": "Jacko",     "ganador": null },
-        { "id": "f6-3", "player1": "Corne",     "player2": "Pater",     "ganador": null },
-        { "id": "f6-4", "player1": "Gordo",     "player2": "Sayo",      "ganador": null },
-        { "id": "f6-5", "player1": "Jr",        "player2": "Negro",     "ganador": null }
-      ]
-    },
-    {
-      "fecha": 7,
-      "partidos": [
-        { "id": "f7-1", "player1": "Azita",     "player2": "Negro",     "ganador": null },
-        { "id": "f7-2", "player1": "Camachine", "player2": "Jr",        "ganador": null },
-        { "id": "f7-3", "player1": "Corne",     "player2": "Sayo",      "ganador": null },
-        { "id": "f7-4", "player1": "Gordo",     "player2": "Mono",      "ganador": null },
-        { "id": "f7-5", "player1": "Jacko",     "player2": "Pater",     "ganador": null }
-      ]
-    },
-    {
-      "fecha": 8,
-      "partidos": [
-        { "id": "f8-1", "player1": "Azita",     "player2": "Pater",     "ganador": null },
-        { "id": "f8-2", "player1": "Camachine", "player2": "Sayo",      "ganador": null },
-        { "id": "f8-3", "player1": "Corne",     "player2": "Jacko",     "ganador": null },
-        { "id": "f8-4", "player1": "Gordo",     "player2": "Negro",     "ganador": null },
-        { "id": "f8-5", "player1": "Jr",        "player2": "Mono",      "ganador": null }
-      ]
-    },
-    {
-      "fecha": 9,
-      "partidos": [
-        { "id": "f9-1", "player1": "Azita",     "player2": "Sayo",      "ganador": null },
-        { "id": "f9-2", "player1": "Camachine", "player2": "Pater",     "ganador": null },
-        { "id": "f9-3", "player1": "Corne",     "player2": "Mono",      "ganador": null },
-        { "id": "f9-4", "player1": "Gordo",     "player2": "Jr",        "ganador": null },
-        { "id": "f9-5", "player1": "Jacko",     "player2": "Negro",     "ganador": null }
-      ]
-    }
-  ]
-};
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/1qYYKehC0gIlkMFqeI7joqgIPGKtGF-5xfhksPWAMWhw/export?format=csv';
+
+        function parseCSVLine(line) {
+            const result = [];
+            let cur = '', inQuotes = false;
+            for (let i = 0; i < line.length; i++) {
+                const ch = line[i];
+                if (ch === '"') { inQuotes = !inQuotes; continue; }
+                if (ch === ',' && !inQuotes) { result.push(cur.trim()); cur = ''; continue; }
+                cur += ch;
+            }
+            result.push(cur.trim());
+            return result;
+        }
+
+        function parseSheetCSV(csv) {
+            const lines = csv.trim().split('\n').filter(l => l.trim());
+            const row0 = parseCSVLine(lines[0]);
+            const fechaIndices = {};
+            row0.forEach((cell, i) => {
+                const m = cell.trim().match(/fecha\s*(\d+)/i);
+                if (m) fechaIndices[parseInt(m[1])] = i;
+            });
+            const fechasMap = {};
+            Object.keys(fechaIndices).forEach(n => { fechasMap[n] = []; });
+            for (let i = 2; i < lines.length; i++) {
+                const cols = parseCSVLine(lines[i]);
+                for (const [numStr, offset] of Object.entries(fechaIndices)) {
+                    const p1      = (cols[offset]     || '').trim();
+                    const p2      = (cols[offset + 1] || '').trim();
+                    const ganador = (cols[offset + 2] || '').trim();
+                    if (!p1 || !p2) continue;
+                    const num = parseInt(numStr);
+                    fechasMap[numStr].push({ player1: p1, player2: p2, ganador: ganador || null });
+                }
+            }
+            return {
+                fase1: Object.keys(fechasMap)
+                    .map(Number).sort((a, b) => a - b)
+                    .filter(f => fechasMap[f].length > 0)
+                    .map(f => ({ fecha: f, partidos: fechasMap[f] }))
+            };
+        }
 
         function renderSchedule(data) {
             const grid = document.getElementById('schedule-grid');
@@ -1149,37 +1149,65 @@
         }
 
         function renderStandings(data) {
+            // Collect all players including those with 0 wins
+            const allPlayers = new Set();
+            data.fase1.forEach(f => f.partidos.forEach(p => {
+                allPlayers.add(p.player1);
+                allPlayers.add(p.player2);
+            }));
             const wins = {};
-            data.fase1.forEach(fecha => {
-                fecha.partidos.forEach(partido => {
-                    if (partido.ganador) {
-                        wins[partido.ganador] = (wins[partido.ganador] || 0) + 1;
-                    }
-                });
-            });
+            allPlayers.forEach(name => { wins[name] = 0; });
+            data.fase1.forEach(f => f.partidos.forEach(p => {
+                if (p.ganador) wins[p.ganador]++;
+            }));
 
             const players = Object.keys(wins)
-                .map(player => ({ name: player, wins: wins[player] }))
+                .map(name => ({ name, wins: wins[name] }))
                 .sort((a, b) => b.wins - a.wins);
 
             const tbody = document.getElementById('standings-body');
-
-            if (players.length === 0) {
+            if (!players.length) {
                 tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;color:var(--text-dim);padding:30px">Sin resultados aun</td></tr>`;
                 return;
             }
 
-            tbody.innerHTML = players.map((p, i) => `
-                <tr class="${i < 8 ? 'top-8' : ''}">
+            const total  = players.length;
+            const TAIL   = 2;
+            const GRAY   = 2;
+            const topEnd  = total - TAIL - GRAY; // posiciones actuales: 0 .. topEnd-1
+            const grayEnd = total - TAIL;         // zona gris: topEnd .. grayEnd-1
+
+            const divider = (cls, label) =>
+                `<tr class="zone-divider ${cls}"><td colspan="3">${label}</td></tr>`;
+
+            const row = (p, i, cls) => `
+                <tr class="${cls}">
                     <td>${i + 1}</td>
                     <td>${p.name}</td>
                     <td>${p.wins}</td>
-                </tr>
-            `).join('');
+                </tr>`;
+
+            tbody.innerHTML =
+                divider('zone-top', 'Posiciones actuales') +
+                players.slice(0, topEnd).map((p, i) => row(p, i, 'top-8')).join('') +
+                divider('zone-gray', 'Zona gris') +
+                players.slice(topEnd, grayEnd).map((p, i) => row(p, topEnd + i, 'zona-gris')).join('') +
+                divider('zone-cola', 'Cola') +
+                players.slice(grayEnd).map((p, i) => row(p, grayEnd + i, 'cola')).join('');
         }
 
-        renderSchedule(matchData);
-        renderStandings(matchData);
+        async function init() {
+            try {
+                const res  = await fetch(CSV_URL);
+                const data = parseSheetCSV(await res.text());
+                renderSchedule(data);
+                renderStandings(data);
+            } catch (e) {
+                console.error('Error cargando datos:', e);
+            }
+        }
+
+        init();
     </script>
 </body>
 </html>

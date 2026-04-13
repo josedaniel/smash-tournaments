@@ -1,232 +1,163 @@
-// Script para generar calendario Round Robin correcto
-// Genera fechas 2-9 respetando la fecha 1 existente
-// Usa backtracking completo para encontrar una solución válida
+// ─────────────────────────────────────────────────────────────────────────────
+// Generador de calendario Round Robin
+// Uso: node generate_schedule.js
+//
+// Configura PLAYERS y, opcionalmente, FECHA_1 (para preservar una fecha ya
+// jugada). Si no hay fecha previa, deja FECHA_1 = null y el script genera
+// todo desde cero.
+// ─────────────────────────────────────────────────────────────────────────────
 
-const fs = require('fs');
+// ── CONFIGURACIÓN ────────────────────────────────────────────────────────────
 
-// Leer la fecha 1 existente
-const currentData = JSON.parse(fs.readFileSync('matches.json', 'utf8'));
-const fecha1 = currentData.fase1[0];
+const PLAYERS = [
+    'Jacko', 'Negro', 'Sayo', 'Corne', 'Gordo',
+    'Jr', 'Ross', 'Azita', 'Pater', 'Camachine'
+];
 
-// Extraer los jugadores
-const jugadores = new Set();
-fecha1.partidos.forEach(partido => {
-    jugadores.add(partido.player1);
-    jugadores.add(partido.player2);
-});
-const jugadoresArray = Array.from(jugadores).sort();
+// Si ya tienes una primera fecha jugada, ponla aquí como array de pares.
+// Si no, pon null y el script genera todas las fechas.
+const FECHA_1 = [
+    ['Jacko',  'Gordo'],
+    ['Sayo',   'Ross'],
+    ['Negro',  'Camachine'],
+    ['Corne',  'Azita'],
+    ['Pater',  'Jr'],
+];
 
-console.log('Jugadores:', jugadoresArray.join(', '));
-console.log('Total:', jugadoresArray.length);
-console.log('\n📅 Fecha 1 (preservada):');
-fecha1.partidos.forEach((p, i) => {
-    console.log(`   ${i + 1}. ${p.player1} vs ${p.player2}${p.ganador ? ' → Ganador: ' + p.ganador : ''}`);
-});
+// ─────────────────────────────────────────────────────────────────────────────
 
-// Registrar peleas ya realizadas en fecha 1
-const peleasIniciales = new Set();
-fecha1.partidos.forEach(partido => {
-    const key = [partido.player1, partido.player2].sort().join('-');
-    peleasIniciales.add(key);
-});
+const players = [...PLAYERS].sort();
+const n = players.length;
 
-console.log(`\n🔒 Peleas ya registradas: ${peleasIniciales.size}\n`);
-
-// Función de backtracking para generar el calendario
-function generarCalendarioBacktracking(fechaNum, peleasRealizadas, fechasAcumuladas) {
-    // Caso base: hemos generado todas las 9 fechas
-    if (fechaNum > 9) {
-        // Verificar que todas las peleas se realizaron
-        const totalPeleasEsperado = jugadoresArray.length * (jugadoresArray.length - 1) / 2;
-        if (peleasRealizadas.size === totalPeleasEsperado) {
-            return fechasAcumuladas;
-        }
-        return null;
-    }
-    
-    // Si es fecha 1, usamos la existente
-    if (fechaNum === 1) {
-        return generarCalendarioBacktracking(2, new Set(peleasRealizadas), [fecha1]);
-    }
-    
-    // Intentar generar la fecha actual
-    const jugadoresDisponibles = [...jugadoresArray];
-    
-    function intentarGenerarFecha(jugadoresRestantes, partidosActuales, peleasUsadas) {
-        // Si no quedan jugadores, hemos completado la fecha
-        if (jugadoresRestantes.length === 0) {
-            if (partidosActuales.length === 5) {
-                // Fecha completada, continuar con la siguiente
-                const nuevasPeleas = new Set([...peleasRealizadas, ...peleasUsadas]);
-                const resultado = generarCalendarioBacktracking(
-                    fechaNum + 1,
-                    nuevasPeleas,
-                    [...fechasAcumuladas, partidosActuales]
-                );
-                if (resultado) return resultado;
-            }
-            return null;
-        }
-        
-        // Tomar el primer jugador disponible
-        const p1 = jugadoresRestantes[0];
-        const resto = jugadoresRestantes.slice(1);
-        
-        // Intentar emparejarlo con cada uno de los jugadores restantes
-        for (let i = 0; i < resto.length; i++) {
-            const p2 = resto[i];
-            const key = [p1, p2].sort().join('-');
-            
-            // Verificar que no hayan jugado antes
-            if (!peleasRealizadas.has(key) && !peleasUsadas.has(key)) {
-                // Crear el partido
-                const nuevoPartido = [p1, p2];
-                const nuevasPeleasUsadas = new Set([...peleasUsadas, key]);
-                
-                // Remover ambos jugadores de los disponibles
-                const nuevosDisponibles = resto.filter((_, idx) => idx !== i);
-                
-                // Recursión
-                const resultado = intentarGenerarFecha(
-                    nuevosDisponibles,
-                    [...partidosActuales, nuevoPartido],
-                    nuevasPeleasUsadas
-                );
-                
-                if (resultado) return resultado;
-            }
-        }
-        
-        return null;
-    }
-    
-    return intentarGenerarFecha(jugadoresDisponibles, [], new Set());
-}
-
-console.log('🔄 Generando calendario con backtracking...');
-console.log('⏳ Esto puede tomar unos segundos...\n');
-
-const fechasGeneradas = generarCalendarioBacktracking(1, peleasIniciales, []);
-
-if (!fechasGeneradas) {
-    console.error('❌ No se pudo generar un calendario válido');
-    console.log('\n💡 Es matemáticamente imposible completar el torneo con esta fecha 1.');
+if (n % 2 !== 0) {
+    console.error('❌ El número de jugadores debe ser par');
     process.exit(1);
 }
 
-console.log(`✅ Calendario generado exitosamente!\n`);
+const totalRounds  = n - 1;
+const matchesPerRound = n / 2;
+const totalMatches = n * (n - 1) / 2;
 
-// Construir el resultado final
-const resultado = {
-    fase1: fechasGeneradas.slice(1).map((fecha, index) => ({
-        fecha: index + 2,
-        partidos: fecha.map((match, matchIndex) => ({
-            id: `f${index + 2}-${matchIndex + 1}`,
-            player1: match[0],
-            player2: match[1],
+console.log(`Jugadores (${n}): ${players.join(', ')}`);
+console.log(`Fechas: ${totalRounds}  |  Partidos por fecha: ${matchesPerRound}  |  Total: ${totalMatches}\n`);
+
+// Registrar peleas de fecha 1 si existe
+const usedPairs = new Set();
+let startFecha = 1;
+
+if (FECHA_1) {
+    FECHA_1.forEach(([p1, p2]) => {
+        usedPairs.add([p1, p2].sort().join('|'));
+    });
+    startFecha = 2;
+    console.log('📅 Fecha 1 (preservada):');
+    FECHA_1.forEach((m, i) => console.log(`   ${i + 1}. ${m[0]} vs ${m[1]}`));
+    console.log();
+}
+
+// ── BACKTRACKING ─────────────────────────────────────────────────────────────
+
+function generateRound(available, used, current) {
+    if (available.length === 0) return current.length === matchesPerRound ? [current] : [];
+
+    const p1   = available[0];
+    const rest = available.slice(1);
+    const results = [];
+
+    for (let i = 0; i < rest.length; i++) {
+        const p2  = rest[i];
+        const key = [p1, p2].sort().join('|');
+        if (used.has(key)) continue;
+
+        const newAvailable = rest.filter((_, idx) => idx !== i);
+        const sub = generateRound(newAvailable, new Set([...used, key]), [...current, [p1, p2]]);
+        results.push(...sub);
+        if (results.length) return results; // first solution found
+    }
+    return results;
+}
+
+console.log('🔄 Generando calendario...');
+
+const schedule = FECHA_1 ? [FECHA_1] : [];
+let pairs = new Set(usedPairs);
+
+for (let r = startFecha; r <= totalRounds; r++) {
+    const solutions = generateRound(players, pairs, []);
+    if (!solutions.length) {
+        console.error(`❌ No se pudo generar la Fecha ${r}`);
+        process.exit(1);
+    }
+    const round = solutions[0];
+    schedule.push(round);
+    round.forEach(([p1, p2]) => pairs.add([p1, p2].sort().join('|')));
+}
+
+// ── VERIFICACIONES ───────────────────────────────────────────────────────────
+
+console.log('\n🔍 VERIFICACIONES:');
+
+let ok = true;
+
+// 1. Un jugador por fecha
+schedule.forEach((round, ri) => {
+    const seen = new Set(round.flat());
+    if (seen.size !== n) {
+        console.log(`   ❌ Fecha ${ri + 1}: jugadores repetidos`);
+        ok = false;
+    }
+});
+
+// 2. Sin peleas duplicadas
+const allPairs = new Map();
+schedule.forEach((round, ri) => {
+    round.forEach(([p1, p2]) => {
+        const key = [p1, p2].sort().join('|');
+        if (allPairs.has(key)) {
+            console.log(`   ❌ Pelea duplicada: ${key} (Fecha ${allPairs.get(key)} y ${ri + 1})`);
+            ok = false;
+        } else {
+            allPairs.set(key, ri + 1);
+        }
+    });
+});
+
+// 3. Cada jugador juega exactamente (n-1) partidos
+const counts = {};
+players.forEach(p => counts[p] = 0);
+schedule.forEach(round => round.forEach(([p1, p2]) => { counts[p1]++; counts[p2]++; }));
+players.forEach(p => {
+    if (counts[p] !== totalRounds) {
+        console.log(`   ❌ ${p}: ${counts[p]} partidos (esperado ${totalRounds})`);
+        ok = false;
+    }
+});
+
+if (!ok) process.exit(1);
+
+console.log(`   ✅ ${schedule.length} fechas, ${allPairs.size} peleas únicas, todos los jugadores juegan ${totalRounds} partidos\n`);
+
+// ── SALIDA ───────────────────────────────────────────────────────────────────
+
+console.log('📅 CALENDARIO COMPLETO\n' + '─'.repeat(50));
+schedule.forEach((round, ri) => {
+    console.log(`\nFecha ${ri + 1}`);
+    round.forEach((m, i) => console.log(`   ${i + 1}. ${m[0].padEnd(12)} vs ${m[1]}`));
+});
+
+// JSON listo para usar
+const json = {
+    fase1: schedule.map((round, ri) => ({
+        fecha: ri + 1,
+        partidos: round.map((m, mi) => ({
+            id: `f${ri + 1}-${mi + 1}`,
+            player1: m[0],
+            player2: m[1],
             ganador: null
         }))
     }))
 };
 
-// Insertar fecha 1 al inicio
-resultado.fase1.unshift(fecha1);
-
-// Verificaciones
-console.log('🔍 VERIFICACIONES:');
-console.log('='.repeat(60));
-
-// 1. Verificar que cada jugador juegue solo una vez por fecha
-console.log('\n1️⃣ Un jugador por fecha:');
-let errorFecha = false;
-resultado.fase1.forEach(fecha => {
-    const jugadoresPorFecha = new Set();
-    fecha.partidos.forEach(partido => {
-        jugadoresPorFecha.add(partido.player1);
-        jugadoresPorFecha.add(partido.player2);
-    });
-    
-    const duplicados = fecha.partidos.length * 2 - jugadoresPorFecha.size;
-    if (duplicados > 0) {
-        console.log(`   ❌ Fecha ${fecha.fecha}: ${duplicados} jugadores repetidos`);
-        errorFecha = true;
-    } else {
-        console.log(`   ✅ Fecha ${fecha.fecha}: ${fecha.partidos.length} partidos, ${jugadoresPorFecha.size} jugadores únicos`);
-    }
-});
-
-// 2. Verificar peleas duplicadas
-console.log('\n2️⃣ Sin peleas duplicadas:');
-const todasLasPeleasMap = new Map();
-let peleasDuplicadas = false;
-
-resultado.fase1.forEach(fecha => {
-    fecha.partidos.forEach(partido => {
-        const key = [partido.player1, partido.player2].sort().join('-');
-        if (todasLasPeleasMap.has(key)) {
-            console.log(`   ❌ Pelea duplicada: ${key} (Fecha ${todasLasPeleasMap.get(key)} y Fecha ${fecha.fecha})`);
-            peleasDuplicadas = true;
-        } else {
-            todasLasPeleasMap.set(key, fecha.fecha);
-        }
-    });
-});
-
-if (!peleasDuplicadas) {
-    console.log(`   ✅ No hay peleas duplicadas (${todasLasPeleasMap.size} peleas únicas)`);
-}
-
-// 3. Verificar que cada jugador juegue exactamente 9 partidos
-console.log('\n3️⃣ Cada jugador juega 9 partidos:');
-const partidosPorJugador = {};
-jugadoresArray.forEach(j => partidosPorJugador[j] = 0);
-
-resultado.fase1.forEach(fecha => {
-    fecha.partidos.forEach(partido => {
-        partidosPorJugador[partido.player1]++;
-        partidosPorJugador[partido.player2]++;
-    });
-});
-
-let todosCorrectos = true;
-Object.entries(partidosPorJugador).forEach(([jugador, count]) => {
-    const status = count === 9 ? '✅' : '❌';
-    console.log(`   ${status} ${jugador.padEnd(12)}: ${count} partidos`);
-    if (count !== 9) todosCorrectos = false;
-});
-
-// Resumen final
-console.log('\n' + '='.repeat(60));
-console.log('📊 RESUMEN:');
-console.log('='.repeat(60));
-
-const exito = !errorFecha && !peleasDuplicadas && todosCorrectos;
-
-if (exito) {
-    console.log('✅ ¡CALENDARIO PERFECTO!');
-    console.log(`   - ${resultado.fase1.length} fechas generadas`);
-    console.log(`   - ${todasLasPeleasMap.size} peleas únicas (esperado: 45)`);
-    console.log(`   - 10 jugadores, cada uno juega 9 partidos`);
-    console.log(`   - Fecha 1 preservada con resultado: Negro ganó a Camachine`);
-    
-    // Guardar resultado
-    fs.writeFileSync('matches_new.json', JSON.stringify(resultado, null, 2));
-    console.log('\n💾 Calendario guardado en matches_new.json');
-    
-    // Imprimir calendario completo
-    console.log('\n' + '='.repeat(60));
-    console.log('📅 CALENDARIO COMPLETO');
-    console.log('='.repeat(60));
-    resultado.fase1.forEach(fecha => {
-        console.log(`\n📅 FECHA ${fecha.fecha}`);
-        console.log('-'.repeat(60));
-        fecha.partidos.forEach((partido, i) => {
-            const ganador = partido.ganador ? ` → ${partido.ganador}` : '';
-            console.log(`   ${i + 1}. ${partido.player1.padEnd(12)} vs ${partido.player2.padEnd(12)}${ganador}`);
-        });
-    });
-    
-} else {
-    console.log('❌ ERROR: El calendario tiene problemas');
-    process.exit(1);
-}
+const fs = require('fs');
+fs.writeFileSync('schedule_output.json', JSON.stringify(json, null, 2));
+console.log('\n💾 Guardado en schedule_output.json');
