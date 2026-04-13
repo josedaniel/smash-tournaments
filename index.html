@@ -347,11 +347,16 @@
             font-size: 1.05rem;
         }
 
-        .standings-table td:nth-child(3) {
+        .standings-table td:nth-child(3),
+        .standings-table td:nth-child(4) {
             text-align: center;
             font-family: 'Bebas Neue', sans-serif;
             font-size: 1.6rem;
             color: var(--text-dim);
+        }
+
+        .standings-table th:nth-child(3) {
+            text-align: center;
         }
 
         /* Zone divider rows */
@@ -375,7 +380,8 @@
             background: rgba(232,213,87,0.03);
         }
         .standings-table .top-8 td:first-child { color: var(--gold); }
-        .standings-table .top-8 td:nth-child(3) { color: var(--gold); }
+        .standings-table .top-8 td:nth-child(3),
+        .standings-table .top-8 td:nth-child(4) { color: var(--gold); }
         .standings-table tr.top-8:first-child td:first-child {
             font-size: 2.1rem;
             text-shadow: 0 0 24px rgba(232,213,87,0.6);
@@ -855,6 +861,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Jugador</th>
+                                <th>PJ</th>
                                 <th>Victorias</th>
                             </tr>
                         </thead>
@@ -1149,41 +1156,47 @@
         }
 
         function renderStandings(data) {
-            // Collect all players including those with 0 wins
             const allPlayers = new Set();
             data.fase1.forEach(f => f.partidos.forEach(p => {
                 allPlayers.add(p.player1);
                 allPlayers.add(p.player2);
             }));
-            const wins = {};
-            allPlayers.forEach(name => { wins[name] = 0; });
+
+            const wins   = {};
+            const played = {};
+            allPlayers.forEach(name => { wins[name] = 0; played[name] = 0; });
             data.fase1.forEach(f => f.partidos.forEach(p => {
-                if (p.ganador) wins[p.ganador]++;
+                if (p.ganador) {
+                    wins[p.ganador]++;
+                    played[p.player1]++;
+                    played[p.player2]++;
+                }
             }));
 
             const players = Object.keys(wins)
-                .map(name => ({ name, wins: wins[name] }))
+                .map(name => ({ name, wins: wins[name], played: played[name] }))
                 .sort((a, b) => b.wins - a.wins);
 
             const tbody = document.getElementById('standings-body');
             if (!players.length) {
-                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;color:var(--text-dim);padding:30px">Sin resultados aun</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--text-dim);padding:30px">Sin resultados aun</td></tr>`;
                 return;
             }
 
             const total  = players.length;
             const TAIL   = 2;
             const GRAY   = 2;
-            const topEnd  = total - TAIL - GRAY; // posiciones actuales: 0 .. topEnd-1
-            const grayEnd = total - TAIL;         // zona gris: topEnd .. grayEnd-1
+            const topEnd  = total - TAIL - GRAY;
+            const grayEnd = total - TAIL;
 
             const divider = (cls, label) =>
-                `<tr class="zone-divider ${cls}"><td colspan="3">${label}</td></tr>`;
+                `<tr class="zone-divider ${cls}"><td colspan="4">${label}</td></tr>`;
 
             const row = (p, i, cls) => `
                 <tr class="${cls}">
                     <td>${i + 1}</td>
                     <td>${p.name}</td>
+                    <td>${p.played}</td>
                     <td>${p.wins}</td>
                 </tr>`;
 
