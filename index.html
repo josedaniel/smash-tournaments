@@ -201,7 +201,7 @@
 
         .schedule-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 14px;
         }
 
@@ -246,24 +246,41 @@
 
         .schedule-matches .match {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 7px;
-            padding: 7px 0;
+            gap: 3px;
+            padding: 10px 0;
             font-size: 0.88rem;
             border-bottom: 1px solid rgba(255,255,255,0.03);
+            text-align: center;
         }
 
         .schedule-matches .match:last-child { border-bottom: none; }
 
-        .schedule-matches .match > span:not(.winner):not(.loser) {
-            flex: 1;
+        .schedule-matches .match .vs-sep {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 1px 0;
         }
 
-        .schedule-matches .match > span:nth-child(2) {
-            flex: 0 0 auto;
+        .match-score {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            padding: 2px 0;
+        }
+
+        .schedule-bye {
+            padding: 8px 4px;
+            font-size: 0.8rem;
             color: var(--text-dim);
-            font-size: 0.72rem;
-            letter-spacing: 1px;
+            border-top: 1px solid var(--border);
+            margin-top: 4px;
+            text-align: center;
+            font-style: italic;
         }
 
         .schedule-matches .match .winner {
@@ -355,7 +372,8 @@
             color: var(--text-dim);
         }
 
-        .standings-table th:nth-child(3) {
+        .standings-table th:nth-child(3),
+        .standings-table th:nth-child(4) {
             text-align: center;
         }
 
@@ -426,9 +444,11 @@
 
         .prize-grid {
             display: grid;
-            grid-template-columns: 1fr 1.15fr 1fr 0.85fr;
+            grid-template-columns: 1fr 1.15fr;
             gap: 18px;
             align-items: end;
+            max-width: 560px;
+            margin: 0 auto;
         }
 
         .prize-card {
@@ -612,8 +632,6 @@
         .rule-block:nth-child(3) .rule-number { color: var(--sky);    }
         .rule-block:nth-child(4) .rule-number { color: var(--gold);   }
         .rule-block:nth-child(5) .rule-number { color: var(--orange); }
-        .rule-block:nth-child(6) .rule-number { color: var(--blue);   }
-        .rule-block:nth-child(7) .rule-number { color: var(--sky);    }
 
         .rule-title {
             flex: 1;
@@ -670,8 +688,6 @@
         .rule-block:nth-child(3) .rule-content li::before { color: var(--sky);    }
         .rule-block:nth-child(4) .rule-content li::before { color: var(--gold);   }
         .rule-block:nth-child(5) .rule-content li::before { color: var(--orange); }
-        .rule-block:nth-child(6) .rule-content li::before { color: var(--blue);   }
-        .rule-block:nth-child(7) .rule-content li::before { color: var(--sky);    }
 
         .rule-content strong { color: var(--text); }
 
@@ -806,11 +822,10 @@
             .prize-grid {
                 grid-template-columns: 1fr;
                 align-items: stretch;
+                max-width: 100%;
             }
             .prize-card.first  { order: -1; padding: 36px 20px; }
             .prize-card.second { order: 0; }
-            .prize-card.third  { order: 1; }
-            .prize-card.fourth { order: 2; }
             .prize-card.first .prize-position { font-size: 2.8rem; }
             .prize-card.first .prize-amount   { font-size: 2.2rem; }
 
@@ -860,8 +875,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Jugador</th>
-                                <th>PJ</th>
+                                <th>Equipo</th>
+                                <th>Pts</th>
                                 <th>Victorias</th>
                             </tr>
                         </thead>
@@ -888,25 +903,13 @@
                         <div class="prize-icon">&#x1F948;</div>
                         <div class="prize-position">2DO</div>
                         <div class="prize-amount">$60.000</div>
-                        <div class="prize-label">Segundo Lugar</div>
+                        <div class="prize-label">Segundo Lugar &mdash; 30%</div>
                     </div>
                     <div class="prize-card first">
                         <div class="prize-icon">&#x1F947;</div>
                         <div class="prize-position">1ER</div>
-                        <div class="prize-amount">$100.000</div>
-                        <div class="prize-label">Primer Lugar</div>
-                    </div>
-                    <div class="prize-card third">
-                        <div class="prize-icon">&#x1F949;</div>
-                        <div class="prize-position">3ER</div>
-                        <div class="prize-amount">$40.000</div>
-                        <div class="prize-label">Tercer Lugar</div>
-                    </div>
-                    <div class="prize-card fourth">
-                        <div class="prize-icon">&#x1F3C5;</div>
-                        <div class="prize-position">4TO</div>
-                        <div class="prize-amount">$20.000</div>
-                        <div class="prize-label">Cuarto Lugar</div>
+                        <div class="prize-amount">$140.000</div>
+                        <div class="prize-label">Primer Lugar &mdash; 70%</div>
                     </div>
                 </div>
 
@@ -930,11 +933,16 @@
                 <div class="rule-block active">
                     <div class="rule-header">
                         <span class="rule-number">01</span>
-                        <span class="rule-title">Clausula de Compromiso</span>
+                        <span class="rule-title">Inscripcion y Premios</span>
                         <span class="rule-toggle">&#x25BC;</span>
                     </div>
                     <div class="rule-content">
-                        <p>Para participar en el torneo, cada jugador debe realizar el pago de una inscripcion de <strong>COP 20.000</strong>. Este aporte garantiza el cupo en la competencia y conforma el fondo para los premios de los ganadores.</p>
+                        <ul>
+                            <li>Cada <strong>participante</strong> paga <strong>COP 20.000</strong> (2 jugadores por equipo = COP 40.000 por equipo)</li>
+                            <li>Bote total: <strong>COP 200.000</strong></li>
+                            <li><strong>1er lugar:</strong> COP 140.000 (70%)</li>
+                            <li><strong>2do lugar:</strong> COP 60.000 (30%)</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -946,12 +954,14 @@
                     </div>
                     <div class="rule-content">
                         <ul>
-                            <li><strong>Modo:</strong> Combate por vidas (3 vidas)</li>
-                            <li><strong>Limite de tiempo:</strong> Sin limite</li>
-                            <li><strong>Objetos:</strong> Desactivados y con frecuencia nula</li>
-                            <li><strong>Escenario:</strong> Seleccion aleatoria en modo Destino Final (Omega)</li>
-                            <li><strong>Pausas:</strong> No permitidas (torneo en linea)</li>
-                            <li><strong>Desconexion:</strong> Los jugadores determinan un ganador o repiten la pelea</li>
+                            <li><strong>Parejas:</strong> Asignadas 100% al azar</li>
+                            <li><strong>Personaje:</strong> Aleatorio en todas las peleas, sin excepcion</li>
+                            <li><strong>Escenario:</strong> Mundo normal, seleccion aleatoria</li>
+                            <li><strong>Objetos:</strong> Desactivados</li>
+                            <li><strong>Porcentaje:</strong> Normal (sin modificadores de dano)</li>
+                            <li><strong>Modo:</strong> Combate por vidas (3 vidas), tiempo maximo</li>
+                            <li><strong>Pausas:</strong> No permitidas</li>
+                            <li><strong>Desconexion:</strong> Los equipos acuerdan el resultado o repiten la pelea</li>
                         </ul>
                     </div>
                 </div>
@@ -963,16 +973,18 @@
                         <span class="rule-toggle">&#x25BC;</span>
                     </div>
                     <div class="rule-content">
-                        <p>Los 10 participantes se enfrentaran en un grupo unico donde todos compiten contra todos.</p>
                         <ul>
-                            <li><strong>Formato:</strong> Mejor de 3 peleas (Bo3)</li>
-                            <li><strong>Seleccion de personaje:</strong> Libre, se permite cambiar entre peleas</li>
-                            <li><strong>Clasificacion:</strong> Los 8 jugadores con mas duelos ganados avanzan a cuartos de final</li>
-                            <li><strong>Desempate:</strong></li>
-                            <ul>
-                                <li>2 personas: pelea a 3 vidas</li>
-                                <li>3+ personas: todos contra todos, pista con plataformas (battlefield), pokeballs con frecuencia alta. El resultado determina el orden</li>
-                            </ul>
+                            <li>5 equipos — formato <strong>todos contra todos</strong>, 5 semanas, 1 equipo descansa por semana</li>
+                            <li>Cada equipo juega <strong>4 duelos</strong> en total (Bo3 &mdash; 3 peleas a 3 vidas)</li>
+                            <li><strong>Puntos:</strong> 1 punto por duelo ganado</li>
+                            <li>Los <strong>3 primeros</strong> avanzan a playoffs; el 4to y 5to quedan eliminados</li>
+                        </ul>
+                        <br>
+                        <p><strong>Desempate (en orden):</strong></p>
+                        <ul>
+                            <li>1. Mayor cantidad de victorias individuales acumuladas</li>
+                            <li>2. Duelo directo con las mismas reglas de la fase inicial (si son 2 equipos) o resultado de los enfrentamientos entre ellos (si son 3 o mas)</li>
+                            <li>3. Si persiste el empate: orden aleatorio</li>
                         </ul>
                     </div>
                 </div>
@@ -980,38 +992,27 @@
                 <div class="rule-block active">
                     <div class="rule-header">
                         <span class="rule-number">04</span>
-                        <span class="rule-title">Fase 2: Eliminacion Directa (Cuartos, Semifinales y Final)</span>
+                        <span class="rule-title">Fase 2: Playoffs (Semifinal y Gran Final)</span>
                         <span class="rule-toggle">&#x25BC;</span>
                     </div>
                     <div class="rule-content">
                         <div class="phase-grid">
                             <div class="phase-card round-robin">
-                                <span class="phase-badge">CUARTOS</span>
-                                <div class="phase-name">1&deg; vs 8&deg;</div>
-                                <div class="phase-name">2&deg; vs 7&deg;</div>
-                                <div class="phase-name">3&deg; vs 6&deg;</div>
-                                <div class="phase-name">4&deg; vs 5&deg;</div>
+                                <span class="phase-badge">SEMIFINAL</span>
+                                <div class="phase-name">2&deg; vs 3&deg;</div>
                                 <ul class="phase-details">
-                                    <li><strong>Formato:</strong> Mejor de 3 (Bo3)</li>
-                                    <li>Ganador: 2 victorias</li>
-                                </ul>
-                            </div>
-                            <div class="phase-card round-robin">
-                                <span class="phase-badge">SEMIFINALES</span>
-                                <div class="phase-name">Ganador Q1 vs Q4</div>
-                                <div class="phase-name">Ganador Q2 vs Q3</div>
-                                <ul class="phase-details">
-                                    <li><strong>Formato:</strong> Mejor de 3 (Bo3)</li>
-                                    <li>Ganador: 2 victorias</li>
+                                    <li><strong>Formato:</strong> Mejor de 5 (Bo5)</li>
+                                    <li>3 vidas por duelo</li>
+                                    <li>Ganador avanza a la Gran Final</li>
                                 </ul>
                             </div>
                             <div class="phase-card elimination">
-                                <span class="phase-badge">FINALES</span>
-                                <div class="phase-name">3&deg; Lugar</div>
-                                <div class="phase-name">Gran Final</div>
+                                <span class="phase-badge">GRAN FINAL</span>
+                                <div class="phase-name">1&deg; vs Ganador Semi</div>
                                 <ul class="phase-details">
                                     <li><strong>Formato:</strong> Mejor de 5 (Bo5)</li>
-                                    <li>Ganador: 3 victorias</li>
+                                    <li>3 vidas por duelo</li>
+                                    <li>El 1&deg; entra directamente</li>
                                 </ul>
                             </div>
                         </div>
@@ -1021,44 +1022,16 @@
                 <div class="rule-block active">
                     <div class="rule-header">
                         <span class="rule-number">05</span>
-                        <span class="rule-title">Regla del Personaje Principal (Main)</span>
+                        <span class="rule-title">Asistencia y Resultados</span>
                         <span class="rule-toggle">&#x25BC;</span>
                     </div>
                     <div class="rule-content">
-                        <p>Antes de iniciar los cuartos de final, los 8 clasificados deberan registrar oficialmente el personaje unico con el que competiran.</p>
                         <ul>
-                            <li>Es <strong>obligatorio</strong> usar exclusivamente el personaje inscrito</li>
-                            <li>No se permiten cambios de personaje en la fase de eliminacion directa</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="rule-block active">
-                    <div class="rule-header">
-                        <span class="rule-number">06</span>
-                        <span class="rule-title">Supervision y Reporte de Resultados</span>
-                        <span class="rule-toggle">&#x25BC;</span>
-                    </div>
-                    <div class="rule-content">
-                        <p>Todas las peleas del torneo requieren la presencia de un <strong>testigo designado</strong> por la organizacion.</p>
-                        <ul>
-                            <li>El testigo es el unico responsable de reportar el resultado final</li>
-                            <li>Resultados se registran en la tabla de posiciones o cuadro de eliminacion</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="rule-block active">
-                    <div class="rule-header">
-                        <span class="rule-number">07</span>
-                        <span class="rule-title">Asistencia y Presentacion a los Partidos</span>
-                        <span class="rule-toggle">&#x25BC;</span>
-                    </div>
-                    <div class="rule-content">
-                        <p>Si no aparece alguno de los peleadores, la administracion programara una fecha/hora.</p>
-                        <ul>
-                            <li>Si no se presentan los peleadores el partido se declara <strong>desierto</strong></li>
-                            <li>Si se presenta solo uno, se le otorga la <strong>victoria automaticamente</strong></li>
+                            <li>Cada equipo tiene <strong>1 semana</strong> para jugar su duelo programado</li>
+                            <li>Si el duelo no se juega, los admins asignaran fecha y hora la semana siguiente</li>
+                            <li>Si un equipo no se presenta en la fecha asignada: <strong>victoria automatica</strong> al rival</li>
+                            <li>Si <strong>ninguno</strong> de los dos equipos se presenta: duelo <strong>desierto</strong>, sin puntos para nadie</li>
+                            <li>Los resultados los reporta un <strong>testigo designado</strong> por la organizacion</li>
                         </ul>
                     </div>
                 </div>
@@ -1073,10 +1046,6 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
                     Ver en vivo
                 </a>
-                <a href="reglamento_torneo.pdf" download class="download-link">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Descargar reglamento oficial
-                </a>
             </div>
         </div>
     </footer>
@@ -1088,7 +1057,7 @@
             });
         });
 
-        const CSV_URL = 'https://docs.google.com/spreadsheets/d/1qYYKehC0gIlkMFqeI7joqgIPGKtGF-5xfhksPWAMWhw/export?format=csv';
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/1kbtLJQQp4CIoQZ01nQVPcsNK8WeYXbpUfDVrBHzjwr8/export?format=csv';
 
         function parseCSVLine(line) {
             const result = [];
@@ -1105,89 +1074,92 @@
 
         function parseSheetCSV(csv) {
             const lines = csv.trim().split('\n').filter(l => l.trim());
-            const row0 = parseCSVLine(lines[0]);
-            const fechaIndices = {};
-            row0.forEach((cell, i) => {
-                const m = cell.trim().match(/fecha\s*(\d+)/i);
-                if (m) fechaIndices[parseInt(m[1])] = i;
-            });
-            const fechasMap = {};
-            Object.keys(fechaIndices).forEach(n => { fechasMap[n] = []; });
-            for (let i = 2; i < lines.length; i++) {
+            const allTeams = [];
+            const semanaMap = {};
+
+            // Row 0 is the header — data starts at row 1
+            for (let i = 1; i < lines.length; i++) {
                 const cols = parseCSVLine(lines[i]);
-                for (const [numStr, offset] of Object.entries(fechaIndices)) {
-                    const p1      = (cols[offset]     || '').trim();
-                    const p2      = (cols[offset + 1] || '').trim();
-                    const ganador = (cols[offset + 2] || '').trim();
-                    if (!p1 || !p2) continue;
-                    const num = parseInt(numStr);
-                    fechasMap[numStr].push({ player1: p1, player2: p2, ganador: ganador || null });
+                const teamName  = (cols[0] || '').trim();
+                const semanaNum = parseInt(cols[1] || '') || 0;
+                const t1        = (cols[2] || '').trim();
+                const t2        = (cols[3] || '').trim();
+                const ganador   = (cols[4] || '').trim();
+                const vic1      = parseInt(cols[5] || '') || 0;
+                const vic2      = parseInt(cols[6] || '') || 0;
+
+                if (teamName) allTeams.push(teamName);
+
+                if (semanaNum && t1 && t2) {
+                    if (!semanaMap[semanaNum]) semanaMap[semanaNum] = [];
+                    semanaMap[semanaNum].push({ team1: t1, team2: t2, ganador: ganador || null, vic1, vic2 });
                 }
             }
+
             return {
-                fase1: Object.keys(fechasMap)
+                teams: allTeams,
+                fase1: Object.keys(semanaMap)
                     .map(Number).sort((a, b) => a - b)
-                    .filter(f => fechasMap[f].length > 0)
-                    .map(f => ({ fecha: f, partidos: fechasMap[f] }))
+                    .map(n => {
+                        const partidos = semanaMap[n];
+                        const playing  = new Set(partidos.flatMap(p => [p.team1, p.team2]));
+                        const descansa = allTeams.find(t => !playing.has(t)) || null;
+                        return { semana: n, descansa, partidos };
+                    })
             };
         }
 
         function renderSchedule(data) {
             const grid = document.getElementById('schedule-grid');
-            grid.innerHTML = data.fase1.map(fecha => `
+            grid.innerHTML = data.fase1.map(week => `
                 <div class="schedule-card">
-                    <div class="schedule-date">Fecha ${fecha.fecha}</div>
+                    <div class="schedule-date">Semana ${week.semana}</div>
                     <div class="schedule-matches">
-                        ${fecha.partidos.map(p => {
+                        ${week.partidos.map(p => {
                             if (p.ganador) {
-                                const p1Class = p.ganador === p.player1 ? 'winner' : 'loser';
-                                const p2Class = p.ganador === p.player2 ? 'winner' : 'loser';
+                                const t1Class = p.ganador === p.team1 ? 'winner' : 'loser';
+                                const t2Class = p.ganador === p.team2 ? 'winner' : 'loser';
+                                const score   = (p.vic1 || p.vic2) ? `<span class="match-score">${p.vic1} - ${p.vic2}</span>` : '';
                                 return `<div class="match">
-                                    <span class="${p1Class}">${p.player1}</span>
-                                    <span>vs</span>
-                                    <span class="${p2Class}">${p.player2}</span>
+                                    <span class="${t1Class}">${p.team1}</span>
+                                    ${score}
+                                    <span class="${t2Class}">${p.team2}</span>
                                 </div>`;
                             }
-                            return `<div class="match">${p.player1} <span>vs</span> ${p.player2}</div>`;
+                            return `<div class="match"><span>${p.team1}</span><span class="vs-sep">vs</span><span>${p.team2}</span></div>`;
                         }).join('')}
+                        ${week.descansa ? `<div class="schedule-bye">&#x1F4A4; Descansa: ${week.descansa}</div>` : ''}
                     </div>
                 </div>
             `).join('');
         }
 
         function renderStandings(data) {
-            const allPlayers = new Set();
-            data.fase1.forEach(f => f.partidos.forEach(p => {
-                allPlayers.add(p.player1);
-                allPlayers.add(p.player2);
-            }));
+            const pts      = {};
+            const victorias = {};
+            data.teams.forEach(name => { pts[name] = 0; victorias[name] = 0; });
 
-            const wins   = {};
-            const played = {};
-            allPlayers.forEach(name => { wins[name] = 0; played[name] = 0; });
             data.fase1.forEach(f => f.partidos.forEach(p => {
                 if (p.ganador) {
-                    wins[p.ganador]++;
-                    played[p.player1]++;
-                    played[p.player2]++;
+                    pts[p.ganador] = (pts[p.ganador] || 0) + 1;
                 }
+                victorias[p.team1] = (victorias[p.team1] || 0) + (p.vic1 || 0);
+                victorias[p.team2] = (victorias[p.team2] || 0) + (p.vic2 || 0);
             }));
 
-            const players = Object.keys(wins)
-                .map(name => ({ name, wins: wins[name], played: played[name] }))
-                .sort((a, b) => b.wins - a.wins);
+            const teams = data.teams
+                .map(name => ({ name, pts: pts[name] || 0, victorias: victorias[name] || 0 }))
+                .sort((a, b) => b.pts - a.pts || b.victorias - a.victorias);
 
             const tbody = document.getElementById('standings-body');
-            if (!players.length) {
+            if (!teams.length) {
                 tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--text-dim);padding:30px">Sin resultados aun</td></tr>`;
                 return;
             }
 
-            const total  = players.length;
-            const TAIL   = 2;
-            const GRAY   = 2;
-            const topEnd  = total - TAIL - GRAY;
-            const grayEnd = total - TAIL;
+            const total  = teams.length;
+            const TAIL   = 1;
+            const topEnd = total - TAIL;
 
             const divider = (cls, label) =>
                 `<tr class="zone-divider ${cls}"><td colspan="4">${label}</td></tr>`;
@@ -1196,17 +1168,15 @@
                 <tr class="${cls}">
                     <td>${i + 1}</td>
                     <td>${p.name}</td>
-                    <td>${p.played}</td>
-                    <td>${p.wins}</td>
+                    <td>${p.pts}</td>
+                    <td>${p.victorias}</td>
                 </tr>`;
 
             tbody.innerHTML =
-                divider('zone-top', 'Posiciones actuales') +
-                players.slice(0, topEnd).map((p, i) => row(p, i, 'top-8')).join('') +
-                divider('zone-gray', 'Zona gris') +
-                players.slice(topEnd, grayEnd).map((p, i) => row(p, topEnd + i, 'zona-gris')).join('') +
-                divider('zone-cola', 'Cola') +
-                players.slice(grayEnd).map((p, i) => row(p, grayEnd + i, 'cola')).join('');
+                divider('zone-top', 'Clasificados') +
+                teams.slice(0, topEnd).map((p, i) => row(p, i, 'top-8')).join('') +
+                divider('zone-cola', 'Eliminado') +
+                teams.slice(topEnd).map((p, i) => row(p, topEnd + i, 'cola')).join('');
         }
 
         async function init() {
