@@ -365,7 +365,8 @@
         }
 
         .standings-table td:nth-child(3),
-        .standings-table td:nth-child(4) {
+        .standings-table td:nth-child(4),
+        .standings-table td:nth-child(5) {
             text-align: center;
             font-family: 'Bebas Neue', sans-serif;
             font-size: 1.6rem;
@@ -373,7 +374,8 @@
         }
 
         .standings-table th:nth-child(3),
-        .standings-table th:nth-child(4) {
+        .standings-table th:nth-child(4),
+        .standings-table th:nth-child(5) {
             text-align: center;
         }
 
@@ -398,8 +400,8 @@
             background: rgba(232,213,87,0.03);
         }
         .standings-table .top-8 td:first-child { color: var(--gold); }
-        .standings-table .top-8 td:nth-child(3),
-        .standings-table .top-8 td:nth-child(4) { color: var(--gold); }
+        .standings-table .top-8 td:nth-child(4),
+        .standings-table .top-8 td:nth-child(5) { color: var(--gold); }
         .standings-table tr.top-8:first-child td:first-child {
             font-size: 2.1rem;
             text-shadow: 0 0 24px rgba(232,213,87,0.6);
@@ -417,7 +419,7 @@
             opacity: 0.75;
         }
         .standings-table .zona-gris td:first-child { color: rgba(232,232,244,0.45); }
-        .standings-table .zona-gris td:nth-child(3) { color: rgba(232,232,244,0.45); }
+        .standings-table .zona-gris td:nth-child(4) { color: rgba(232,232,244,0.45); }
 
         /* Cola */
         .standings-table .zone-divider.zone-cola td {
@@ -431,7 +433,7 @@
             opacity: 0.6;
         }
         .standings-table .cola td:first-child { color: rgba(220,100,100,0.6); }
-        .standings-table .cola td:nth-child(3) { color: rgba(220,100,100,0.6); }
+        .standings-table .cola td:nth-child(4) { color: rgba(220,100,100,0.6); }
 
         /* =====================
            PRIZES
@@ -1200,30 +1202,35 @@
         }
 
         function buildStandingsRows(group) {
-            const pts = {}, victorias = {};
-            group.players.forEach(name => { pts[name] = 0; victorias[name] = 0; });
+            const pts = {}, victorias = {}, pj = {};
+            group.players.forEach(name => { pts[name] = 0; victorias[name] = 0; pj[name] = 0; });
 
             group.semanas.forEach(s => s.partidos.forEach(p => {
-                if (p.ganador) pts[p.ganador] = (pts[p.ganador] || 0) + 1;
+                if (p.ganador) {
+                    pts[p.ganador] = (pts[p.ganador] || 0) + 1;
+                    pj[p.team1] = (pj[p.team1] || 0) + 1;
+                    pj[p.team2] = (pj[p.team2] || 0) + 1;
+                }
                 victorias[p.team1] = (victorias[p.team1] || 0) + (p.vic1 || 0);
                 victorias[p.team2] = (victorias[p.team2] || 0) + (p.vic2 || 0);
             }));
 
             const players = group.players
-                .map(name => ({ name, pts: pts[name] || 0, victorias: victorias[name] || 0 }))
+                .map(name => ({ name, pj: pj[name] || 0, pts: pts[name] || 0, victorias: victorias[name] || 0 }))
                 .sort((a, b) => b.pts - a.pts || b.victorias - a.victorias);
 
             if (!players.length) {
-                return `<tr><td colspan="4" style="text-align:center;color:var(--text-dim);padding:30px">Sin resultados aun</td></tr>`;
+                return `<tr><td colspan="5" style="text-align:center;color:var(--text-dim);padding:30px">Sin resultados aun</td></tr>`;
             }
 
             const ADVANCE = 2;
             const divider = (cls, label) =>
-                `<tr class="zone-divider ${cls}"><td colspan="4">${label}</td></tr>`;
+                `<tr class="zone-divider ${cls}"><td colspan="5">${label}</td></tr>`;
             const row = (p, i, cls) => `
                 <tr class="${cls}">
                     <td>${i + 1}</td>
                     <td>${p.name}</td>
+                    <td>${p.pj}</td>
                     <td>${p.pts}</td>
                     <td>${p.victorias}</td>
                 </tr>`;
@@ -1244,6 +1251,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Jugador</th>
+                                    <th>PJ</th>
                                     <th>Pts</th>
                                     <th>Victorias</th>
                                 </tr>
