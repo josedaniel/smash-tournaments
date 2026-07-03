@@ -6,7 +6,7 @@
     <title>SMASH SCRUBS SAGA - Tournament</title>
 
     <meta name="title" content="SMASH SCRUBS SAGA - Tournament">
-    <meta name="description" content="Torneo de Smash Bros - Fase 1 Round Robin + Fase 2 Eliminacion Directa">
+    <meta name="description" content="Torneo de Smash Bros - Fase de Grupos Round Robin + Playoffs - Individual">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://torneo-smash.josepaternina.com/">
@@ -444,10 +444,10 @@
 
         .prize-grid {
             display: grid;
-            grid-template-columns: 1fr 1.15fr;
+            grid-template-columns: 1fr 1.15fr 1fr;
             gap: 18px;
             align-items: end;
-            max-width: 560px;
+            max-width: 760px;
             margin: 0 auto;
         }
 
@@ -756,6 +756,40 @@
         .phase-details li strong { color: var(--gold); }
 
         /* =====================
+           GROUP SECTIONS
+        ===================== */
+        .group-section { margin-bottom: 32px; }
+
+        .group-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            color: var(--orange);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .standings-groups-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .standings-group-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            color: var(--orange);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .standings-groups-wrap { grid-template-columns: 1fr; }
+        }
+
+        /* =====================
            FOOTER
         ===================== */
         footer {
@@ -826,6 +860,7 @@
             }
             .prize-card.first  { order: -1; padding: 36px 20px; }
             .prize-card.second { order: 0; }
+            .prize-card.third  { order: 1; }
             .prize-card.first .prize-position { font-size: 2.8rem; }
             .prize-card.first .prize-amount   { font-size: 2.2rem; }
 
@@ -855,10 +890,10 @@
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">CRONOGRAMA</h2>
-                    <p class="section-sub">Fase 1 &mdash; Round Robin</p>
+                    <p class="section-sub">Fase de Grupos &mdash; Round Robin</p>
                 </div>
-                <div class="schedule-grid" id="schedule-grid">
-                    <p style="text-align:center;color:var(--text-dim);grid-column:1/-1">Cargando partidos...</p>
+                <div id="schedule-groups">
+                    <p style="text-align:center;color:var(--text-dim)">Cargando partidos...</p>
                 </div>
             </div>
         </section>
@@ -868,27 +903,9 @@
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">TABLA DE POSICIONES</h2>
-                    <p class="section-sub">Fase 1 &mdash; Round Robin</p>
+                    <p class="section-sub">Fase de Grupos</p>
                 </div>
-                <div class="standings-wrap">
-                    <table class="standings-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Equipo</th>
-                                <th>Pts</th>
-                                <th>Victorias</th>
-                            </tr>
-                        </thead>
-                        <tbody id="standings-body">
-                            <tr>
-                                <td colspan="3" style="text-align:center;color:var(--text-dim);padding:30px">
-                                    Sin resultados aun
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <div id="standings-groups"></div>
             </div>
         </section>
 
@@ -908,8 +925,14 @@
                     <div class="prize-card first">
                         <div class="prize-icon">&#x1F947;</div>
                         <div class="prize-position">1ER</div>
-                        <div class="prize-amount">$140.000</div>
-                        <div class="prize-label">Primer Lugar &mdash; 70%</div>
+                        <div class="prize-amount">$100.000</div>
+                        <div class="prize-label">Primer Lugar &mdash; 50%</div>
+                    </div>
+                    <div class="prize-card third">
+                        <div class="prize-icon">&#x1F949;</div>
+                        <div class="prize-position">3ER</div>
+                        <div class="prize-amount">$40.000</div>
+                        <div class="prize-label">Tercer Lugar &mdash; 20%</div>
                     </div>
                 </div>
 
@@ -938,10 +961,11 @@
                     </div>
                     <div class="rule-content">
                         <ul>
-                            <li>Cada <strong>participante</strong> paga <strong>COP 20.000</strong> (2 jugadores por equipo = COP 40.000 por equipo)</li>
-                            <li>Bote total: <strong>COP 200.000</strong></li>
-                            <li><strong>1er lugar:</strong> COP 140.000 (70%)</li>
+                            <li>Cada <strong>jugador</strong> paga <strong>COP 20.000</strong></li>
+                            <li>Bote total: <strong>COP 200.000</strong> (10 jugadores)</li>
+                            <li><strong>1er lugar:</strong> COP 100.000 (50%)</li>
                             <li><strong>2do lugar:</strong> COP 60.000 (30%)</li>
+                            <li><strong>3er lugar:</strong> COP 40.000 (20%)</li>
                         </ul>
                     </div>
                 </div>
@@ -954,14 +978,13 @@
                     </div>
                     <div class="rule-content">
                         <ul>
-                            <li><strong>Parejas:</strong> Asignadas 100% al azar</li>
                             <li><strong>Personaje:</strong> Aleatorio en todas las peleas, sin excepcion</li>
-                            <li><strong>Escenario:</strong> Mundo normal, seleccion aleatoria</li>
+                            <li><strong>Escenario:</strong> Aleatorio entre variantes tipo Battlefield</li>
                             <li><strong>Objetos:</strong> Desactivados</li>
                             <li><strong>Porcentaje:</strong> Normal (sin modificadores de dano)</li>
                             <li><strong>Modo:</strong> Combate por vidas (3 vidas), tiempo maximo</li>
                             <li><strong>Pausas:</strong> No permitidas</li>
-                            <li><strong>Desconexion:</strong> Los equipos acuerdan el resultado o repiten la pelea</li>
+                            <li><strong>Desconexion:</strong> Los jugadores acuerdan el resultado o repiten la pelea</li>
                         </ul>
                     </div>
                 </div>
@@ -974,17 +997,17 @@
                     </div>
                     <div class="rule-content">
                         <ul>
-                            <li>5 equipos — formato <strong>todos contra todos</strong>, 5 semanas, 1 equipo descansa por semana</li>
-                            <li>Cada equipo juega <strong>4 duelos</strong> en total (Bo3 &mdash; 3 peleas a 3 vidas)</li>
+                            <li>2 grupos de 5 jugadores &mdash; formato <strong>todos contra todos</strong> dentro de cada grupo</li>
+                            <li>5 semanas, 2 partidas por semana por grupo (1 jugador descansa cada semana)</li>
+                            <li>Cada jugador juega <strong>4 duelos</strong> en total (Bo3 &mdash; 3 peleas a 3 vidas)</li>
                             <li><strong>Puntos:</strong> 1 punto por duelo ganado</li>
-                            <li>Los <strong>3 primeros</strong> avanzan a playoffs; el 4to y 5to quedan eliminados</li>
+                            <li>Los <strong>2 primeros</strong> de cada grupo avanzan a playoffs; el 3ro, 4to y 5to quedan eliminados</li>
                         </ul>
                         <br>
                         <p><strong>Desempate (en orden):</strong></p>
                         <ul>
-                            <li>1. Mayor cantidad de victorias individuales acumuladas</li>
-                            <li>2. Duelo directo con las mismas reglas de la fase inicial (si son 2 equipos) o resultado de los enfrentamientos entre ellos (si son 3 o mas)</li>
-                            <li>3. Si persiste el empate: orden aleatorio</li>
+                            <li>1. <strong>Mayor cantidad de victorias</strong> individuales acumuladas en el round robin</li>
+                            <li>2. Si persiste: <strong>Sudden Death</strong> entre todos los jugadores empatados (personaje aleatorio, 300% de dano inicial)</li>
                         </ul>
                     </div>
                 </div>
@@ -998,8 +1021,17 @@
                     <div class="rule-content">
                         <div class="phase-grid">
                             <div class="phase-card round-robin">
-                                <span class="phase-badge">SEMIFINAL</span>
-                                <div class="phase-name">2&deg; vs 3&deg;</div>
+                                <span class="phase-badge">SEMIFINAL 1</span>
+                                <div class="phase-name">1&deg;A vs 2&deg;B</div>
+                                <ul class="phase-details">
+                                    <li><strong>Formato:</strong> Mejor de 5 (Bo5)</li>
+                                    <li>3 vidas por duelo</li>
+                                    <li>Ganador avanza a la Gran Final</li>
+                                </ul>
+                            </div>
+                            <div class="phase-card round-robin">
+                                <span class="phase-badge">SEMIFINAL 2</span>
+                                <div class="phase-name">1&deg;B vs 2&deg;A</div>
                                 <ul class="phase-details">
                                     <li><strong>Formato:</strong> Mejor de 5 (Bo5)</li>
                                     <li>3 vidas por duelo</li>
@@ -1008,11 +1040,11 @@
                             </div>
                             <div class="phase-card elimination">
                                 <span class="phase-badge">GRAN FINAL</span>
-                                <div class="phase-name">1&deg; vs Ganador Semi</div>
+                                <div class="phase-name">Ganador S1 vs Ganador S2</div>
                                 <ul class="phase-details">
                                     <li><strong>Formato:</strong> Mejor de 5 (Bo5)</li>
                                     <li>3 vidas por duelo</li>
-                                    <li>El 1&deg; entra directamente</li>
+                                    <li>El perdedor disputa el 3er puesto</li>
                                 </ul>
                             </div>
                         </div>
@@ -1027,10 +1059,10 @@
                     </div>
                     <div class="rule-content">
                         <ul>
-                            <li>Cada equipo tiene <strong>1 semana</strong> para jugar su duelo programado</li>
+                            <li>Cada jugador tiene <strong>1 semana</strong> para jugar su duelo programado</li>
                             <li>Si el duelo no se juega, los admins asignaran fecha y hora la semana siguiente</li>
-                            <li>Si un equipo no se presenta en la fecha asignada: <strong>victoria automatica</strong> al rival</li>
-                            <li>Si <strong>ninguno</strong> de los dos equipos se presenta: duelo <strong>desierto</strong>, sin puntos para nadie</li>
+                            <li>Si un jugador no se presenta en la fecha asignada: <strong>victoria automatica</strong> al rival</li>
+                            <li>Si <strong>ninguno</strong> de los dos jugadores se presenta: duelo <strong>desierto</strong>, sin puntos para nadie</li>
                             <li>Los resultados los reporta un <strong>testigo designado</strong> por la organizacion</li>
                         </ul>
                     </div>
@@ -1074,44 +1106,64 @@
 
         function parseSheetCSV(csv) {
             const lines = csv.trim().split('\n').filter(l => l.trim());
-            const allTeams = [];
-            const semanaMap = {};
+            const playersA = [], playersB = [];
+            const semanaMapA = {}, semanaMapB = {};
 
             // Row 0 is the header — data starts at row 1
+            // Cols: 0=GrupoA player, 1=GrupoB player,
+            //       2-7=Group A (semana,r1,r2,ganador,vic1,vic2),
+            //       8-13=Group B (semana,r1,r2,ganador,vic1,vic2)
             for (let i = 1; i < lines.length; i++) {
                 const cols = parseCSVLine(lines[i]);
-                const teamName  = (cols[0] || '').trim();
-                const semanaNum = parseInt(cols[1] || '') || 0;
-                const t1        = (cols[2] || '').trim();
-                const t2        = (cols[3] || '').trim();
-                const ganador   = (cols[4] || '').trim();
-                const vic1      = parseInt(cols[5] || '') || 0;
-                const vic2      = parseInt(cols[6] || '') || 0;
 
-                if (teamName) allTeams.push(teamName);
+                const pA = (cols[0] || '').trim();
+                const pB = (cols[1] || '').trim();
+                if (pA) playersA.push(pA);
+                if (pB) playersB.push(pB);
 
-                if (semanaNum && t1 && t2) {
-                    if (!semanaMap[semanaNum]) semanaMap[semanaNum] = [];
-                    semanaMap[semanaNum].push({ team1: t1, team2: t2, ganador: ganador || null, vic1, vic2 });
+                const semA = parseInt(cols[2] || '') || 0;
+                const r1A  = (cols[3] || '').trim();
+                const r2A  = (cols[4] || '').trim();
+                const ganA = (cols[5] || '').trim();
+                const v1A  = parseInt(cols[6] || '') || 0;
+                const v2A  = parseInt(cols[7] || '') || 0;
+                if (semA && r1A && r2A) {
+                    if (!semanaMapA[semA]) semanaMapA[semA] = [];
+                    semanaMapA[semA].push({ team1: r1A, team2: r2A, ganador: ganA || null, vic1: v1A, vic2: v2A });
+                }
+
+                const semB = parseInt(cols[8] || '') || 0;
+                const r1B  = (cols[9] || '').trim();
+                const r2B  = (cols[10] || '').trim();
+                const ganB = (cols[11] || '').trim();
+                const v1B  = parseInt(cols[12] || '') || 0;
+                const v2B  = parseInt(cols[13] || '') || 0;
+                if (semB && r1B && r2B) {
+                    if (!semanaMapB[semB]) semanaMapB[semB] = [];
+                    semanaMapB[semB].push({ team1: r1B, team2: r2B, ganador: ganB || null, vic1: v1B, vic2: v2B });
                 }
             }
 
-            return {
-                teams: allTeams,
-                fase1: Object.keys(semanaMap)
+            const buildGroup = (players, semanaMap) => ({
+                players,
+                semanas: Object.keys(semanaMap)
                     .map(Number).sort((a, b) => a - b)
                     .map(n => {
                         const partidos = semanaMap[n];
                         const playing  = new Set(partidos.flatMap(p => [p.team1, p.team2]));
-                        const descansa = allTeams.find(t => !playing.has(t)) || null;
+                        const descansa = players.find(t => !playing.has(t)) || null;
                         return { semana: n, descansa, partidos };
                     })
+            });
+
+            return {
+                grupoA: buildGroup(playersA, semanaMapA),
+                grupoB: buildGroup(playersB, semanaMapB)
             };
         }
 
-        function renderSchedule(data) {
-            const grid = document.getElementById('schedule-grid');
-            grid.innerHTML = data.fase1.map(week => `
+        function renderWeeks(semanas) {
+            return semanas.map(week => `
                 <div class="schedule-card">
                     <div class="schedule-date">Semana ${week.semana}</div>
                     <div class="schedule-matches">
@@ -1134,36 +1186,40 @@
             `).join('');
         }
 
-        function renderStandings(data) {
-            const pts      = {};
-            const victorias = {};
-            data.teams.forEach(name => { pts[name] = 0; victorias[name] = 0; });
+        function renderSchedule(data) {
+            document.getElementById('schedule-groups').innerHTML = `
+                <div class="group-section">
+                    <div class="group-label">GRUPO A</div>
+                    <div class="schedule-grid">${renderWeeks(data.grupoA.semanas)}</div>
+                </div>
+                <div class="group-section">
+                    <div class="group-label">GRUPO B</div>
+                    <div class="schedule-grid">${renderWeeks(data.grupoB.semanas)}</div>
+                </div>
+            `;
+        }
 
-            data.fase1.forEach(f => f.partidos.forEach(p => {
-                if (p.ganador) {
-                    pts[p.ganador] = (pts[p.ganador] || 0) + 1;
-                }
+        function buildStandingsRows(group) {
+            const pts = {}, victorias = {};
+            group.players.forEach(name => { pts[name] = 0; victorias[name] = 0; });
+
+            group.semanas.forEach(s => s.partidos.forEach(p => {
+                if (p.ganador) pts[p.ganador] = (pts[p.ganador] || 0) + 1;
                 victorias[p.team1] = (victorias[p.team1] || 0) + (p.vic1 || 0);
                 victorias[p.team2] = (victorias[p.team2] || 0) + (p.vic2 || 0);
             }));
 
-            const teams = data.teams
+            const players = group.players
                 .map(name => ({ name, pts: pts[name] || 0, victorias: victorias[name] || 0 }))
                 .sort((a, b) => b.pts - a.pts || b.victorias - a.victorias);
 
-            const tbody = document.getElementById('standings-body');
-            if (!teams.length) {
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--text-dim);padding:30px">Sin resultados aun</td></tr>`;
-                return;
+            if (!players.length) {
+                return `<tr><td colspan="4" style="text-align:center;color:var(--text-dim);padding:30px">Sin resultados aun</td></tr>`;
             }
 
-            const total  = teams.length;
-            const TAIL   = 1;
-            const topEnd = total - TAIL;
-
+            const ADVANCE = 2;
             const divider = (cls, label) =>
                 `<tr class="zone-divider ${cls}"><td colspan="4">${label}</td></tr>`;
-
             const row = (p, i, cls) => `
                 <tr class="${cls}">
                     <td>${i + 1}</td>
@@ -1172,19 +1228,47 @@
                     <td>${p.victorias}</td>
                 </tr>`;
 
-            tbody.innerHTML =
-                divider('zone-top', 'Clasificados') +
-                teams.slice(0, topEnd).map((p, i) => row(p, i, 'top-8')).join('') +
-                divider('zone-cola', 'Eliminado') +
-                teams.slice(topEnd).map((p, i) => row(p, topEnd + i, 'cola')).join('');
+            return divider('zone-top', 'Clasificados') +
+                players.slice(0, ADVANCE).map((p, i) => row(p, i, 'top-8')).join('') +
+                divider('zone-cola', 'Eliminados') +
+                players.slice(ADVANCE).map((p, i) => row(p, ADVANCE + i, 'cola')).join('');
+        }
+
+        function renderStandings(data) {
+            const table = (title, group) => `
+                <div>
+                    <div class="standings-group-title">${title}</div>
+                    <div class="standings-wrap">
+                        <table class="standings-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Jugador</th>
+                                    <th>Pts</th>
+                                    <th>Victorias</th>
+                                </tr>
+                            </thead>
+                            <tbody>${buildStandingsRows(group)}</tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            document.getElementById('standings-groups').innerHTML = `
+                <div class="standings-groups-wrap">
+                    ${table('GRUPO A', data.grupoA)}
+                    ${table('GRUPO B', data.grupoB)}
+                </div>
+            `;
         }
 
         async function init() {
             try {
                 const res  = await fetch(CSV_URL);
                 const data = parseSheetCSV(await res.text());
-                renderSchedule(data);
-                renderStandings(data);
+                if (data.grupoA.semanas.length || data.grupoB.semanas.length) {
+                    renderSchedule(data);
+                    renderStandings(data);
+                }
             } catch (e) {
                 console.error('Error cargando datos:', e);
             }
